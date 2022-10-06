@@ -6,14 +6,14 @@ export default class ProductsModel {
   }
 
   public async create(product: IProduct): Promise<IProduct> {
-    const query = 'INSERT INTO Products (name, amount) VALUES (?, ?)';
+    const query = 'INSERT INTO Trybesmith.Products (name, amount) VALUES (?, ?)';
     const result = await this.connection
       .execute<ResultSetHeader>(query, [product.name, product.amount]);
   
     const [dataInserted] = result;
 
     const { insertId } = dataInserted;
-    
+
     return { id: insertId, ...product };
   }
 }
