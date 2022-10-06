@@ -13,6 +13,6 @@ export default class UsersController {
 
     const token = generateJWT(user);
 
-    res.status(statusCodes.CREATED).json({ token });
+    return res.status(statusCodes.CREATED).json({ token });
   };
 }
