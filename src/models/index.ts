@@ -1,5 +1,3 @@
 import ProductsModel from './products.model';
 
-export {
-  ProductsModel,
-};
+export default ProductsModel;

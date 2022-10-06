@@ -1,12 +1,10 @@
-import express, { Response, Request } from 'express';
+import express from 'express';
+import ProductsController from '../controllers/products.controller';
 
 const router = express.Router();
 
-router.post('/', (req: Request, res: Response) => {
-  const product = req.body;
-  const newProduct = productController.create();
+const productsController = new ProductsController();
 
-  res.status(201).json(newProduct);
-});
+router.post('/', productsController.create);
 
 export default router;
