@@ -6,7 +6,8 @@ const JWT_SECRET: Secret = 'secret';
 
 const generateJWT = (user: IUser) => {
   const payload = {
-    ...user,
+    id: user.id,
+    username: user.username,
   };
 
   const config: SignOptions = {

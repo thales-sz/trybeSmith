@@ -1,4 +1,4 @@
-import { Pool, ResultSetHeader } from 'mysql2/promise';
+import { Pool, RowDataPacket } from 'mysql2/promise';
 import IUser from '../interfaces/user.interface';
 
 export default class UsersModel {
@@ -14,11 +14,11 @@ export default class UsersModel {
       .execute(query, [user.username, user.classe, user.level, user.password]);
   }
 
-  public async getUserByLogin(username: string): Promise<IUser> {
-    const query = `SELECT u.id, u.username, u.classe, u.level
+  public async getUserByLogin(username: string): Promise<RowDataPacket[]> {
+    const query = `SELECT u.id, u.username, u.classe, u.level, u.password
     FROM Trybesmith.Users u
     WHERE u.username = ?`;
-    const [result] = await this.connection.execute<IUser & ResultSetHeader>(query, [username]);
+    const [result] = await this.connection.execute<RowDataPacket[]>(query, [username]);
     return result;
   }
 }

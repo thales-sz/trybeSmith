@@ -1,6 +1,6 @@
+import { RowDataPacket } from 'mysql2';
 import connection from '../models/connection';
 import { UsersModel } from '../models';
-import IUser from '../interfaces/user.interface';
 
 export default class LoginService {
   public model: UsersModel;
@@ -9,7 +9,7 @@ export default class LoginService {
     this.model = new UsersModel(connection);
   }
 
-  public async getUserByLogin(username: string): Promise<IUser> {
+  public async getUserByLogin(username: string): Promise<RowDataPacket[]> {
     return this.model.getUserByLogin(username);
   }
 }
