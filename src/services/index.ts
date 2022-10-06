@@ -1,7 +1,7 @@
-import UserService from './users.service';
-import ProductService from './products.service';
+import UsersService from './users.service';
+import ProductsService from './products.service';
 
 export {
-  UserService,
-  ProductService,
+  UsersService,
+  ProductsService,
 };

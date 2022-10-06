@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
-import { UserService } from '../services';
+import { UsersService } from '../services';
 import generateJWT from '../utils/generateJWT';
 import statusCodes from '../utils/statusCodes';
 
 export default class UsersController {
-  constructor(private userService = new UserService()) {}
+  constructor(private usersService = new UsersService()) {}
 
   public registerUser = async (req: Request, res: Response) => {
     const user = req.body;
 
-    await this.userService.registerUser(user);
+    await this.usersService.registerUser(user);
 
     const token = generateJWT(user);
 

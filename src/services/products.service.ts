@@ -2,7 +2,7 @@ import connection from '../models/connection';
 import { ProductsModel } from '../models';
 import IProduct from '../interfaces/product.interface';
 
-export default class ProductService {
+export default class ProductsService {
   public model: ProductsModel;
 
   constructor() {
