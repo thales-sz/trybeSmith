@@ -1,4 +1,5 @@
 import express from 'express';
+import validateUser from './middlewares/verifyUser.middleware';
 import { LoginRoutes, OrdersRoutes, ProductsRoutes, UsersRoutes } from './routes';
 import statusCodes from './utils/statusCodes';
 
@@ -8,7 +9,7 @@ app.use(express.json());
 
 app.use('/products', ProductsRoutes);
 
-app.use('/users', UsersRoutes);
+app.use('/users', validateUser, UsersRoutes);
 
 app.use('/orders', OrdersRoutes);
 

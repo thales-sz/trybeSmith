@@ -13,9 +13,9 @@ export default class ProductsController {
 
     if (error) {
       if (error.message.includes('required')) {
-        return res.status(400).json({ message: error.message });
+        return res.status(statusCodes.BAD_REQUEST).json({ message: error.message });
       }
-      return res.status(422).json({ message: error.message });
+      return res.status(statusCodes.UNPROCESSABLE).json({ message: error.message });
     }
 
     const newProduct = await this.productsService.create(product);
