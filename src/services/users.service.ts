@@ -9,7 +9,8 @@ export default class UsersService {
     this.model = new UsersModel(connection);
   }
 
-  public async registerUser(user: IUser): Promise<void> {
-    return this.model.registerUser(user);
+  public async registerUser(user: IUser): Promise<IUser> {
+    const newUser = await this.model.registerUser(user);
+    return newUser;
   }
 }
