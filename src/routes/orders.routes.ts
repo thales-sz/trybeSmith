@@ -1,6 +1,6 @@
 import express from 'express';
 import { OrdersController } from '../controllers';
-import validateJWT from '../middlewares/validJWT.middleware';
+import { validateJWT } from '../middlewares/validJWT.middleware';
 import validateOrder from '../middlewares/verifyOrder.middleware';
 
 const router = express.Router();

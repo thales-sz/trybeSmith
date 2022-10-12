@@ -2,6 +2,7 @@ import Jwt, { Secret } from 'jsonwebtoken';
 
 import 'dotenv/config';
 import { NextFunction, Request, Response } from 'express';
+import IOrder from '../interfaces/order.inteface';
 
 const secret: Secret = process.env.JWT_SECRET || 'string';
 
@@ -20,4 +21,16 @@ const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default validateJWT;
+const decodeToken = (token: string) => {
+  try {
+    const decode = Jwt.verify(token, secret);
+    return decode as IOrder;
+  } catch (error) {
+    return null;
+  }
+};
+
+export {
+  validateJWT,
+  decodeToken,
+};

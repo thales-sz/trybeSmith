@@ -12,4 +12,9 @@ export default class OrdersService {
   public async getOrders(): Promise<IOrder[]> {
     return this.model.getOrders();
   }
+
+  public async createOrder(order: IOrder): Promise<IOrder> {
+    const newOrder = await this.model.createOrder(order);
+    return newOrder;
+  }
 }

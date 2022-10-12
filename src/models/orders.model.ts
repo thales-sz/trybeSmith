@@ -1,4 +1,4 @@
-import { Pool, RowDataPacket } from 'mysql2/promise';
+import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
 import IOrder from '../interfaces/order.inteface';
 
 export default class OrdersModel {
@@ -13,5 +13,19 @@ export default class OrdersModel {
     GROUP BY o.id`;
     const [result] = await this.connection.execute<RowDataPacket[]>(query);
     return result as IOrder[];
+  }
+
+  public async createOrder(order: IOrder): Promise<IOrder> {
+    const querys = ['INSERT INTO Trybesmith.Orders (userId) VALUES (?)',
+      'UPDATE Trybesmith.Products SET orderId = ? WHERE id = ?;'];
+    const result = await this.connection.execute<ResultSetHeader>(querys[0], [order.userId]);
+    const [dataInserted] = result;
+    const { insertId } = dataInserted;
+
+    order.productsIds.forEach(async (prodId) => {
+      await this.connection.execute(querys[1], [insertId, prodId]);
+    });
+
+    return { ...order };
   }
 }
