@@ -17,14 +17,15 @@ export default class OrdersModel {
 
   public async createOrder(order: IOrder): Promise<IOrder> {
     const querys = ['INSERT INTO Trybesmith.Orders (userId) VALUES (?)',
-      'UPDATE Trybesmith.Products SET orderId = ? WHERE id = ?;'];
-    const result = await this.connection.execute<ResultSetHeader>(querys[0], [order.userId]);
-    const [dataInserted] = result;
-    const { insertId } = dataInserted;
+      'UPDATE Trybesmith.Products SET orderId=? WHERE id=?'];
+    const [{ insertId }] = await this.connection
+      .execute<ResultSetHeader>(querys[0], [order.userId]);
 
-    order.productsIds.forEach(async (prodId) => {
-      await this.connection.execute(querys[1], [insertId, prodId]);
+    const products = order.productsIds.map(async (prodId) => {
+      await this.connection.execute<ResultSetHeader>(querys[1], [insertId, prodId]);
     });
+
+    Promise.all(products);
 
     return { ...order };
   }
